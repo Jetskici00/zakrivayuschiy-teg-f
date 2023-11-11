@@ -1,20 +1,360 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ theme-dark — класс тёмной темы
-✦ theme-light — класс светлой темы
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
-
-*/
-
 .page {
+  font-family: var(--page-main-font-family, "Inter", sans-serif);
+  font-variation-settings: "wght" var(--page-main-font-weight, 400);
+  background-color: var(--page-background-color, #ffffff);
+  background-image: var(--page-background-image, none);
+  color: var(--text-color, #000000);
+  background-size: cover;
+  background-attachment: fixed;
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  padding-block-start: 100px;
+}
+
+.page__header {
+  margin-block-end: 100px;
+}
+
+.modal {
+  font-family: var(--page-accent-font-family, "PressStart2P", fantasy);
+  text-transform: uppercase;
+  border: 2px solid var(--text-color, #000000);
+  background: var(--page-background-color, #ffffff);
+  color: var(--text-color, #000000);
+  line-height: 1.5;
+  max-inline-size: 355px;
+  padding: 25px 30px;
+}
+
+.modal[open] {
+  display: grid;
+  grid-template-rows: repeat(2, min-content);
+  gap: 30px;
+}
+
+.modal::backdrop {
+  opacity: 0.75;
+  background: var(--color-black, #000000);
+}
+
+.modal__content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal__icon {
+  block-size: 39px;
+  inline-size: 39px;
+  flex-shrink: 0;
+}
+
+.modal__button {
+  inline-size: 100%;
+}
+
+.page-title {
+  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+}
+
+.header {
+  display: grid;
+  font-family: var(--page-accent-font-family, "PressStart2P", fantasy);
+  justify-content: center;
+  justify-items: center;
+  text-transform: uppercase;
+  line-height: normal;
+}
+
+.header__title {
+  margin-block-start: clamp(7.5rem, 7.1479rem + 1.5023vw, 8.5rem);
+  margin-block-end: 20px;
+}
+
+.header__subtitle {
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+}
+
+.header__theme-menu {
+  margin-block: 25px;
+}
+
+.theme-menu__list {
+  display: grid;
+  padding-inline-start: 20px;
+  gap: 8px;
+}
+
+.theme-menu__button {
+  position: relative;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  transition: opacity 0.3s ease;
+}
+
+.theme-menu__button:not(:disabled)::after {
+  display: block;
+  background: currentColor;
+  content: "";
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  inline-size: 100%;
+  block-size: 2px;
+  transform: scaleX(0);
+}
+
+.theme-menu__button:hover {
+  opacity: 0.6;
+}
+
+.theme-menu__button:focus {
+  opacity: 0.6;
+  outline: none;
+}
+
+.theme-menu__button:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.theme-menu__button:disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.theme-menu__button:disabled::before {
+  position: absolute;
+  content: "▶";
+  inset-inline-start: -12px;
+  inset-block-start: 0px;
+  animation: arrow 0.5s ease-in-out infinite alternate;
+}
+
+.main {
+  display: grid;
+  justify-items: center;
+  padding-block-end: 105px;
+  gap: 57px;
+}
+
+.cards-list {
+  display: grid;
+  gap: 52px;
+}
+
+.card {
+  background: var(--page-background-color, #ffffff);
+  border: 2px solid var(--text-color, #000000);
+  max-inline-size: 696px;
+  margin-inline: auto;
+}
+
+.card__header {
+  border-block-end: 2px solid var(--text-color, #000000);
+  padding: 4px 10px;
+}
+
+.card__title {
+  font-size: 18px;
+  font-variation-settings: "wght" var(--headings-font-weight, 700);
+  line-height: normal;
+}
+
+.card__img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.card__img-label {
+  position: absolute;
+  font-size: 14px;
+  font-family: var(--page-accent-font-family, "PressStart2P", fantasy);
+  color: var(--text-color, #000000);
+  text-shadow: 0 0 1px var(--page-background-color, #ffffff);
+  opacity: 0.5;
+  line-height: normal;
+  mix-blend-mode: hard-light;
+  inset-inline-end: 13px;
+  inset-block-start: 24px;
+  z-index: 1;
+}
+
+.card__img {
+  display: block;
+  aspect-ratio: 1 / 1;
+  inline-size: 100%;
+  object-position: center;
+  object-fit: cover;
+}
+
+.card__content {
+  display: grid;
+  font-size: 18px;
+  border-block-start: 2px solid var(--text-color, #000000);
+  line-height: calc(21 / 18);
+  padding: 25px 30px 0 25px;
+  gap: 27px;
+}
+
+.card__footer {
+  display: flex;
+  justify-content: end;
+  align-items: stretch;
+  padding: 25px 25px 23px 25px;
+  gap: 5px;
+}
+
+.card__icon-button {
+  display: grid;
+  background: transparent;
+  border: 2px solid transparent;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  padding: 0;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--text-color, #000000);
+}
+
+.button {
+  position: relative;
+  font-size: 14px;
+  font-family: var(--page-accent-font-family, "PressStart2P", fantasy);
+  background: var(--page-background-color, #ffffff);
+  border: 2px solid var(--text-color, #000000);
+  text-transform: inherit;
+  transition: box-shadow 0.3s ease;
+  appearance: none;
+  cursor: pointer;
+  padding: 10px 36px;
+  z-index: 1;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  box-shadow: 2px 2px 0px 0px var(--text-color, #000000);
+}
+
+.button::before {
+  position: absolute;
+  background: var(--text-color, #000000);
+  content: "";
+  inset: 0;
+  transform-origin: left;
+  block-size: 100%;
+  inline-size: 100%;
+  transition: transform 0.5s ease-in-out;
+  transform: scaleX(0);
+  z-index: -1;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button--save {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  padding: 15px 20px;
+  gap: 10px;
+}
+
+.button__text,
+.button__icon {
+  color: var(--button-text-color, #ffffff);
+  mix-blend-mode: difference;
+}
+
+.button__icon {
+  block-size: 22px;
+  inline-size: 22px;
+}
+
+.like-icon {
+  block-size: 36px;
+  inline-size: 39px;
+}
+
+@supports (
+  (-webkit-text-stroke: 1px var(--page-background-color, #ffffff)) or
+  (text-stroke: 1px var(--page-background-color, #ffffff))
+) {
+  .card__img-label {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--page-background-color, #ffffff);
+  }
+}
+
+@media (width <= 375px) {
+  .modal {
+    padding: 28px 34px 28px 40px;
+    max-inline-size: 340px;
+  }
+
+  .button--save {
+    flex-direction: column;
+  }
+
+  .button__icon {
+    block-size: 28px;
+    inline-size: 28px;
+  }
+}
+
+/* filters */
+
+.filter-saturate-contrast {
+  filter: brightness(78%) saturate(300%) contrast(105%);
+  -webkit-filter: brightness(78%) saturate(300%) contrast(105%);
+  -moz-filter: brightness(78%) saturate(300%) contrast(105%);
+}
+
+.filter-sepia {
+  filter: sepia(100%) brightness(80%);
+  -webkit-filter: sepia(100%) brightness(80%);
+  -moz-filter: sepia(100%) brightness(80%);
+}
+
+.filter-contrast-opasity {
+  filter: opacity(80%) contrast(85%);
+  -webkit-filter: opacity(80%) contrast(85%);
+  -moz-filter: opacity(80%) contrast(85%);
+}
+
+.filter-faintly-gray {
+  filter: saturate(70%) contrast(65%);
+  -webkit-filter: saturate(70%) contrast(65%);
+  -moz-filter: saturate(70%) contrast(65%);
+}
+.filter-black-and-white {
+  filter: grayscale(100%) sepia(23%) brightness(127%) saturate(81%);
+  -webkit-filter: grayscale(100%) sepia(23%) brightness(127%) saturate(81%);
+  -moz-filter: grayscale(100%) sepia(23%) brightness(127%) saturate(81%);
+}
+
+.filter-sepia-gray {
+  filter: grayscale(60%) sepia(20%);
+  -webkit-filter: grayscale(60%) sepia(20%);
+  -moz-filter: grayscale(60%) sepia(20%);
+}
+
+.filter-contrast {
+  filter: contrast(80%);
+  -webkit-filter: contrast(80%);
+  -moz-filter: contrast(80%);
 }
