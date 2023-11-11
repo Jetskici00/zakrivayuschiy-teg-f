@@ -273,7 +273,7 @@
   gap: 10px;
 }
 
-.button__text{
+.button__text {
   color: var(--button-text-color, #ffffff);
   mix-blend-mode: difference;
 }
@@ -281,9 +281,6 @@
 .button__icon {
   color: var(--button-text-color, #ffffff);
   mix-blend-mode: difference;
-}
-
-.button__icon {
   block-size: 22px;
   inline-size: 22px;
 }
@@ -295,7 +292,7 @@
 
 @supports (
   (-webkit-text-stroke: 1px var(--page-background-color, #ffffff)) or
-  (text-stroke: 1px var(--page-background-color, #ffffff))
+    (text-stroke: 1px var(--page-background-color, #ffffff))
 ) {
   .card__img-label {
     text-shadow: none;
