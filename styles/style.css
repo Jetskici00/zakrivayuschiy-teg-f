@@ -33,8 +33,7 @@
 }
 
 .modal::backdrop {
-  opacity: 0.75;
-  background: var(--color-black, #000000);
+  background-color: rgba(var(--color-black), 0.75);
 }
 
 .modal__content {
@@ -274,7 +273,11 @@
   gap: 10px;
 }
 
-.button__text,
+.button__text{
+  color: var(--button-text-color, #ffffff);
+  mix-blend-mode: difference;
+}
+
 .button__icon {
   color: var(--button-text-color, #ffffff);
   mix-blend-mode: difference;
@@ -297,6 +300,7 @@
   .card__img-label {
     text-shadow: none;
     -webkit-text-stroke: 1px var(--page-background-color, #ffffff);
+    text-stroke: 1px var(--page-background-color, #ffffff);
   }
 }
 
